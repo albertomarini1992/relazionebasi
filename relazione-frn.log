@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2013.6.4)  30 JUN 2014 21:29
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2013.6.4)  12 JUL 2014 11:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -249,14 +249,18 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 15.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 15.
- [1
+
+
+Package frontespizio Warning: Missing advisor name.
+
+[1
 
 {/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./logo.
 jpg>] ) 
 Here is how much of TeX's memory you used:
  2744 strings out of 493625
  38639 string characters out of 3143291
- 103520 words of memory out of 3000000
+ 104528 words of memory out of 3000000
  6035 multiletter control sequences out of 15000+200000
  7605 words of font info for 27 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
@@ -266,7 +270,7 @@ Here is how much of TeX's memory you used:
 pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pf
 b></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
 
-Output written on relazione-frn.pdf (1 page, 54573 bytes).
+Output written on relazione-frn.pdf (1 page, 52947 bytes).
 PDF statistics:
  25 PDF objects out of 1000 (max. 8388607)
  16 compressed objects within 1 object stream

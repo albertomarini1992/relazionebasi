@@ -62,7 +62,7 @@ Le informazioni contenute nella basi di dati devono essere presentate in un sito
 \chapter{Progetto concettuale}
 \begin{figure}[!ht]
 \centering
-\includegraphics[scale = 0.3]{ER.png}
+\includegraphics[scale = 0.6]{ER.png}
 \caption{ER}
 \end{figure}
 
@@ -71,7 +71,7 @@ Dopo aver risolto la generalizzazione, il nuovo schema Entità Relazioni risulta
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[scale = 0.3]{Generalizzazione.png}
+\includegraphics[scale = 0.8]{Generalizzazione.png}
 \caption{Generalizzazione}
 \end{figure}
 
@@ -79,47 +79,57 @@ Dopo aver risolto la generalizzazione, il nuovo schema Entità Relazioni risulta
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[scale = 0.3]{Schema_Relazionale.png}
-\caption{Schema_Relazionale}
+\includegraphics[scale = 0.8]{Schema_Relazionale.png}
+\caption{Schema\_Relazionale}
 \end{figure}
 
 \chapter{Struttura applicazione web}
 La \figurename ~\ref{fig:struttura} mostra la struttura dell’applicazione web creata per il progetto. Abbiamo utilizzato l'architettura MVC-2 con un approccio Servlet-centric e l'aggiunta di Hibernate 
-Abbiamo la parte di Model (parte logica) che interagisce con il DBMS creato estraendone le informazioni di interesse, tramite le classi DBMS.java e i JavaBeans. L'interazione con il database viene effettuata utilizzando Hibernate. Il modulo Controller (flusso) è sappresentato dalle servlet Main.java e AjaxServlet.java, che hanno il compito di prendere le informazioni che arrivano dal modulo precedente e trasferirle a chi si preoccupa della visualizzazione. La servlet 'AjaxServlet.java' viene utilizzata dalla form presente in AcquistoPage per il controllo scritto in Ajax. Inﬁne l’ultima parte di View (presentazione) è gestita dalle JSP che indicano il modo di mostrare i dati all’utente ﬁnale dell’applicazione.
+Abbiamo la parte di Model (parte logica) che interagisce con il DBMS creato estraendone le informazioni di interesse, tramite le classi DBMS.java e i JavaBeans. L'interazione con il database viene effettuata utilizzando Hibernate. Il modulo Controller (flusso) è sappresentato dalle servlet Main.java e AjaxServlet.java, che hanno il compito di prendere le informazioni che arrivano dal modulo precedente e trasferirle a chi si preoccupa della visualizzazione. La servlet 'AjaxServlet.java' viene utilizzata dalla form presente in AcquistoPage per il controllo scritto in Ajax. Infine l’ultima parte di View (presentazione) è gestita dalle JSP che indicano il modo di mostrare i dati all’utente finale dell’applicazione.
 
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[scale = 0.3]{Struttura.png}
+\includegraphics[scale = 1]{Struttura.png}
 \caption{Struttura}
 \label{fig:struttura}
 \end{figure}
 
+\clearpage
+
 Nel nostro progetto: 
 \begin{itemize}
 \item la parte del DBMS è svolta da DBMS.java 
-\item i JavaBeans sono: BigliettoBean.java, C_FBean.java, ClienteBean.java, CorsaBean.java, FermataBean.java, LineaBean.java e Versamentobean.java
-\item per la parte di hibernate, sono stati creati: BigliettoBean.hbm.xml, C_FBean.hbm.xml, ClienteBean.hbm.xml, CorsaBean.hbm.xml, FermataBean.hbm.xml, LineaBean.hbm.xml e Versamentobean.hbm.xml
+\item i JavaBeans sono: BigliettoBean.java, C\_FBean.java, ClienteBean.java, CorsaBean.java, FermataBean.java, LineaBean.java e Versamentobean.java
+\item per la parte di hibernate, sono stati creati: BigliettoBean.hbm.xml, C\_FBean.hbm.xml, ClienteBean.hbm.xml, CorsaBean.hbm.xml, FermataBean.hbm.xml, LineaBean.hbm.xml e Versamentobean.hbm.xml
 \item le servlet sono: Main.java e AjaxServlet.java
 \item le JSP sono: Index.html, Utente.jsp, Orari.jsp, Linea.jsp, Oki.html, Biglietto.jsp e AcquistoPage.jsp 
 \end{itemize}
 
 \clearpage
 
-Siccome Hibernate non gestisce gli attributi nelle relazioni, non potevamo gestire l'attributo ''Orario'' della relazione ''C_F''. Di conseguenza abbiamo creato una nuova relazione, chiamata ''Orario'' che contiene l'attributo ''Orario'' e la relazione (1.N)-(1.N) che era presente tra le entità ad essa collegata è stata modificata in due relazioni (1.N)-(1.1) verso l'entità ''Orario''
+Siccome Hibernate non gestisce gli attributi nelle relazioni, non potevamo gestire l'attributo ''Orario'' della relazione ''C\_F''. 
+Di conseguenza abbiamo creato una nuova relazione, chiamata ''Orario'' che contiene l'attributo ''Orario'' e la relazione (1.N)-(1.N) che era presente tra le entità ad essa collegata è stata modificata in due relazioni (1.N)-(1.1) verso l'entità ''Orario''
 
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[scale = 0.3]{Modifica.png}
+\includegraphics[scale = 1]{Modifica.png}
 \caption{Modifica relazione}
 \end{figure}
 
-\chapter{Progetto Logico}
+\chapter{Progetto Logico - Popolamento - Progettazione Logica}
+
+~
+
 Il file ScriptProgBasi.sql rappresenta il progetto logico
-\chapter{Popolamento}
+
+~
+
 Il file ScriptInserimento.sql rappresenta il popolamento della base di dati
-\chapter{Progettazione Logica}
-Il file page_schema.txt rappresenta i page schema del sito web
+
+~
+
+Il file page\_schema.txt rappresenta i page schema del sito web
 
 \end{document}
