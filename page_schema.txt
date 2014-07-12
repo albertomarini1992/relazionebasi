@@ -1,0 +1,140 @@
+//Index
+
+page-schema Index unique (
+				Presentazione: string;
+				Contatti: string;
+				Società: image;
+				Orari: link ( Orari: string, *Orari );
+				Login: form ( Username: text; Password: Password; Entra: submit(*Utente); ) )
+
+	
+// Orari
+
+page-schema Orari (
+				ListaLinea: list_of ( Linea: link ( Codice: string, *Linea ); Partenza: string; Arrivo: string; );
+				Home: link ( Home: string, * Index );)
+
+DB to page-schema Orari parameter() (
+				Codice, Partenza, Arrivo : SELECT * FROM LINEA;
+)
+
+
+// Linea 
+
+page-schema Linea (
+				CorseDirette: list_of ( Partenza: string; Arrivo: string; );
+				FermateDirette: list_of ( Nome: string; Orario: string; );
+				CorseInverse: list_of ( Partenza: string; Arrivo: string; );
+				FermateInverse: list_of ( Nome: string; Orario: string; );
+				Home: link (Home: string, *Index);
+				Linee: link (Linee: string, *Orari);)
+
+DB to page-schema Linea parameter(cod_linea) (
+				Partenza, Arrivo : SELECT Codice_Linea, Orario_Partenza, Orario, Nome 
+				FROM c_f 
+				where codice_linea=?cod_linea? order by orario ; )
+DB to page-schema Linea parameter(codice,senso) (
+				Nome, Orario : SELECT Codice, Orario_Partenza, Orario_Arrivo, senso_marcia 
+				FROM Corsa 
+				where senso_marcia=?senso? and codice=?codice? ; )
+	
+// Utente 
+
+page-schema Utente ( 
+				Nome: string;
+				Cognome: string;
+				CodiceFiscale: string;	
+				DataNascita: date;	
+				Comune: string;
+				Versamenti: list_of ( Data: string; Importo: integer; );
+				BigliettiSingoli: list_of ( Codice: link ( Codice: integer, *Biglietto ); Data: date; );
+				BigliettiAR: list_of ( Codice: link ( Codice: integer, *Biglietto ); Data: date; );
+				AbbonamentiSett: list_of ( Codice: link ( Codice: integer, *Biglietto ); Data: date; );
+				AbbonamentiMensili: list_of ( Codice: link ( Codice: integer, *Biglietto ); Data: date; );
+				AcquistaBiglietto: link ( AcquistaBiglietto: string, *AcquistoPage); 
+				Home: link (Home: string, *Index); )
+		
+DB to page-schema Utente parameter (user, psw) (
+				Nome, Cognome, CodiceFiscale, DataNascita, Comune, : 
+				SELECT cf, nome, cognome, data_nascita, comune, login, psw 
+				FROM cliente 
+				where login=?user? and psw=?psw?  )
+						
+DB to page-schema Utente parameter (user) (
+				Data, Importo : 
+				SELECT data, ora, importo, versamento.cf 
+				FROM versamento , cliente 
+				WHERE cliente.cf= versamento.cf and cliente.login=?user?  )
+						
+DB to page-schema Utente parameter (user) (
+				Codice, Data :
+				SELECT cod_emissione, data_emissione, importo, tipo, data_inizio, data_fine, biglietto.cf, cf_abb, nome_p, nome_a 
+				FROM biglietto , cliente 
+				WHERE biglietto.cf= cliente.cf and cliente.login=?user?  )
+
+// Biglietto
+
+page-schema Biglietto (
+				Cod_Biglietto: string;
+				Data_Emissione: date;
+				Tipologia: string;
+				Importo: integer;
+				Partenza: string; 
+				Arrivo: string;
+				Home: link (Home: string, *Index); )
+
+DB to page-schema Biglietto parameter (numero) (
+				Cod_Biglietto, Data_Emissione, Tipologia, Importo, Partenza, Arrivo : 
+				SELECT cod_emissione, data_emissione, importo, tipo, data_inizio, data_fine, cf, cf_abb, nome_p, nome_a 
+				FROM biglietto 
+				WHERE cod_emissione=?numero?  )
+
+// AcquistoPage 
+
+page-schema AcquistoPage (	
+	Acquisto: form (    Linea: select [(linea: string)];
+			    Senso: select [(diretta, inversa)];
+			    Tipo: select [(corsa semplice, corsa andata e ritorno, abbonamento settimanale, abbonamento mensile)];
+				Partenza: select [fermata: string];
+			    Arrivo: select [fermata: string];
+				CFAbbonato: string;
+				InizioValidità: date;
+			    FineValidità: date;
+			    Invia: submit(*Esito) ); 
+				Home: link (Home: string, *Index); )
+					
+DB to page-schema AcquistoPage parameter (linea) (
+				fermata : 
+				select distinct nome 
+				from c_f 
+				where codice_linea =?linea? order by nome ; )
+					
+DB to page-schema AcquistoPage parameter () (
+				linea : 
+				SELECT * FROM Linea ; )
+					
+DB from page-schema AcquistoPage (
+	Acquisto: INSERT INTO Biglietto (nome_spettacolo, data_spettacolo, ora_spettacolo, nome_teatro, num_settore) VALUES (?NomeSpettacolo?, ?Data?, ?Ora?, ?Teatro?, ?Settore?); 
+DB from page-schema AcquistoPage (
+	Acquisto: INSERT INTO Versamento (nome_spettacolo, data_spettacolo, ora_spettacolo, nome_teatro, num_settore) VALUES (?NomeSpettacolo?, ?Data?, ?Ora?, ?Teatro?, ?Settore?); 
+
+
+// Esito
+
+page-schema Esito ( 
+				Codice: integer;
+				Prezzo: integer;
+				Partenza: string;
+				Arrivo: string;
+				Linea: string;
+				Senso: string;
+				Tipo: string;
+				Data: date;
+				Home: link(Home:string, *Index);)
+
+DB to page-schema Esito parameter(codice) (
+				Codice, Prezzo, Posto, Settore, Teatro, Spettacolo, Data, Ora : 
+				SELECT codice, prezzo, numero, num_settore, nome_teatro, nome_spettacolo, data_spettacolo, ora_spettacolo 
+				FROM BIGLIETTO 
+				WHERE codice = ?codice? ;
+)
