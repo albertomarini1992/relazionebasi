@@ -119,12 +119,17 @@ Di conseguenza abbiamo creato una nuova relazione, chiamata ''Orario'' che conti
 \end{figure}
 
 \chapter{Progetto Logico - Popolamento - Progettazione Logica}
+
+~
+
 Il file ScriptProgBasi.sql rappresenta il progetto logico
 
 ~
+
 Il file ScriptInserimento.sql rappresenta il popolamento della base di dati
 
 ~
+
 Il file page\_schema.txt rappresenta i page schema del sito web
 
 \end{document}
